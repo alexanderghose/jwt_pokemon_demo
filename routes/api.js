@@ -54,10 +54,13 @@ router.post('/handle_login', async function(req,res) {
 // })
 
 router.post('/allPokemon', async function(req,res) {
-    let jwt = req.body.jwt;
+    let user_jwt = req.body.jwt;
+
+    let verifySuccess = jwt.verify(user_jwt, 'secret_jwt_word')
     // ADD A LINE OF CODE HERE so that we an verify the incoming jwt
     // hint: us ethe jwt verify method
-    if (jwt) {
+    // jwt.verify(customer_jwt, 'secret_jwt_word')
+    if (verifySuccess) {
         try {
             let pokemonList = await PokemonModel.find({})
             res.json(pokemonList)
